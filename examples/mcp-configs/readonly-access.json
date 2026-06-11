@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "chromadesk": {
+      "command": "chromadesk-mcp",
+      "args": [],
+      "env": {
+        "CHROMADESK_READONLY_TOKEN": "your-readonly-token"
+      }
+    }
+  }
+}

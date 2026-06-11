@@ -1,0 +1,23 @@
+[package]
+name = "chromadesk-mcp"
+version = "0.1.0"
+edition = "2021"
+description = "MCP bridge for ChromaDesk remote desktop"
+
+[dependencies]
+rmcp = { version = "0.17", features = ["server", "transport-io", "transport-streamable-http-server"] }
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = "0.26"
+tokio-util = "0.7"
+futures-util = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+schemars = "1"
+clap = { version = "4", features = ["derive", "env"] }
+axum = "0.8"
+tower-http = { version = "0.6", features = ["cors"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+rusqlite = { version = "0.34", features = ["bundled"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4"] }

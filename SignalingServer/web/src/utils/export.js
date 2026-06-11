@@ -1,0 +1,22 @@
+export function exportCSV(columns, data, filename = 'export.csv') {
+  const header = columns.map(c => c.label).join(',')
+  const rows = data.map(row =>
+    columns.map(c => {
+      let val = row[c.key] ?? ''
+      val = String(val).replace(/"/g, '""')
+      if (val.includes(',') || val.includes('"') || val.includes('\n')) {
+        val = `"${val}"`
+      }
+      return val
+    }).join(',')
+  )
+  const csv = [header, ...rows].join('\n')
+  const BOM = '﻿'
+  const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = filename
+  link.click()
+  URL.revokeObjectURL(url)
+}

@@ -1,0 +1,43 @@
+# Build output
+x64/
+Debug/
+Release/
+ARM64/
+
+# MSBuild intermediate files (hash-named dirs like quickdes.2D54CB75/)
+*.????????/
+*.suo
+*.user
+*.ncb
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+.vs/
+
+# Compiler output
+*.obj
+*.pdb
+*.pch
+*.idb
+*.ilk
+*.exp
+*.lib
+*.log
+*.tlog
+*.lastbuildstate
+*.unsuccessfulbuild
+
+# Driver output (built by build_vdd_win.bat, not tracked)
+*.sys
+*.dll
+*.cat
+
+# Third-party tools (downloaded, not tracked)
+tools/
+*.exe
+
+# Keep prebuilt driver binaries for CI packaging
+# (must be at the end to override *.dll, *.exe, *.cat, x64/ rules above)
+!prebuilt/
+!prebuilt/**

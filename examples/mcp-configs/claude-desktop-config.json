@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chromadesk": {
+      "command": "cmd",
+      "args": ["/c", "C:\\Program Files\\ChromaDesk\\chromadesk-mcp.exe"]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chromadesk": {
+      "type": "sse",
+      "url": "http://192.168.1.100:18080/mcp"
+    }
+  }
+}

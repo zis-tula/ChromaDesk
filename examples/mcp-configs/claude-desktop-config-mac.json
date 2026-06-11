@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chromadesk": {
+      "command": "/Applications/ChromaDesk.app/Contents/Frameworks/chromadesk-mcp",
+      "args": []
+    }
+  }
+}

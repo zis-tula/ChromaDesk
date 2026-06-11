@@ -1,0 +1,14 @@
+services:
+  signaling-server:
+    image: ghcr.io/barry-ran/chromadesk-signaling:${IMAGE_TAG:-latest}
+    container_name: chromadesk-signaling
+    restart: always
+    ports:
+      - "${SERVER_PORT:-8000}:8000"
+    volumes:
+      - signaling-data:/data
+    env_file:
+      - .env
+
+volumes:
+  signaling-data:

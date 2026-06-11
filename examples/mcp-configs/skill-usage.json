@@ -1,0 +1,66 @@
+{
+  "_comment": "Example: Using ChromaDesk Skill tools via MCP",
+  "_note": "These are example MCP tool call payloads, not client config files",
+
+  "list_skill_tools": {
+    "name": "skill_list_tools",
+    "arguments": {
+      "connection_id": "conn_1"
+    }
+  },
+
+  "run_shell_command": {
+    "name": "skill_exec",
+    "arguments": {
+      "connection_id": "conn_1",
+      "tool_name": "run_command",
+      "arguments": {
+        "command": "systeminfo",
+        "timeout_secs": 30
+      }
+    }
+  },
+
+  "get_system_info": {
+    "name": "skill_exec",
+    "arguments": {
+      "connection_id": "conn_1",
+      "tool_name": "get_system_info",
+      "arguments": {}
+    }
+  },
+
+  "list_processes": {
+    "name": "skill_exec",
+    "arguments": {
+      "connection_id": "conn_1",
+      "tool_name": "list_processes",
+      "arguments": {
+        "sort_by": "cpu",
+        "limit": 20
+      }
+    }
+  },
+
+  "read_file": {
+    "name": "skill_exec",
+    "arguments": {
+      "connection_id": "conn_1",
+      "tool_name": "read_file",
+      "arguments": {
+        "path": "C:\\Users\\user\\Documents\\config.txt"
+      }
+    }
+  },
+
+  "list_directory": {
+    "name": "skill_exec",
+    "arguments": {
+      "connection_id": "conn_1",
+      "tool_name": "list_directory",
+      "arguments": {
+        "path": "C:\\Users\\user\\Desktop"
+      }
+    }
+  }
+}

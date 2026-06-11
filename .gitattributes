@@ -1,0 +1,9 @@
+# Force LF for shell scripts (must not have \r on Linux)
+*.sh text eol=lf
+
+# Force LF for Dockerfiles and compose files
+Dockerfile text eol=lf
+docker-compose*.yml text eol=lf
+
+# Force LF for GitHub Actions workflows
+*.yml text eol=lf linguist-language=YAML

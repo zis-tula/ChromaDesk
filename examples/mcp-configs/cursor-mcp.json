@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "chromadesk": {
+      "command": "chromadesk-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}

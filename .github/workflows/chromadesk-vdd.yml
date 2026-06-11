@@ -1,0 +1,71 @@
+name: ChromaDesk Virtual Display Driver
+
+on:
+  push:
+    paths:
+      - 'chromadesk-virtual-display/**'
+      - '.github/workflows/chromadesk-vdd.yml'
+  pull_request:
+    paths:
+      - 'chromadesk-virtual-display/**'
+      - '.github/workflows/chromadesk-vdd.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    name: Build VDD
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check solution exists
+        id: check
+        shell: pwsh
+        run: |
+          if (Test-Path "chromadesk-virtual-display\chromadesk-virtual-display.sln") {
+            echo "exists=true" >> $env:GITHUB_OUTPUT
+          } else {
+            echo "exists=false" >> $env:GITHUB_OUTPUT
+            Write-Host "::warning::VDD solution not found, skipping build"
+          }
+
+      - name: Install WDK
+        if: steps.check.outputs.exists == 'true'
+        shell: pwsh
+        run: |
+          # Download and install WDK 10.0.26100 (matches windows-latest SDK)
+          $url = 'https://go.microsoft.com/fwlink/?linkid=2272234'
+          $installer = "$env:TEMP\wdksetup.exe"
+          Invoke-WebRequest -Uri $url -OutFile $installer -UseBasicParsing
+          Start-Process -FilePath $installer -ArgumentList '/quiet','/norestart' -Wait
+          Write-Host 'WDK installed'
+
+      - name: Setup MSBuild
+        if: steps.check.outputs.exists == 'true'
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build driver
+        if: steps.check.outputs.exists == 'true'
+        shell: cmd
+        run: |
+          call scripts\build_vdd_win.bat Release
+
+      - name: Get version
+        if: steps.check.outputs.exists == 'true'
+        id: version
+        shell: bash
+        run: |
+          echo "ref-name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+
+      - name: Upload driver artifact
+        if: steps.check.outputs.exists == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: chromadesk-vdd-${{ steps.version.outputs.ref-name }}
+          path: output/x64/Release/drivers/vdd/
