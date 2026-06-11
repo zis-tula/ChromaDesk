@@ -93,7 +93,17 @@ if not exist "%temp_path%" (
 )
 cd /d "%temp_path%"
 
-set cmake_params=-DCMAKE_PREFIX_PATH=%qt_cmake_path% -DCMAKE_BUILD_TYPE=%build_mode% -G "Visual Studio 17 2022" -A %cmake_vs_build_mode%
+:: Auto-detect Visual Studio version for CMake generator
+set cmake_generator=Visual Studio 17 2022
+where cmake >nul 2>&1
+if %errorlevel%==0 (
+    for /f "delims=" %%g in ('cmake --help 2^>nul ^| findstr /C:"Visual Studio"') do (
+        for %%v in (%%g) do set cmake_generator=%%v
+    )
+)
+echo [*] CMake generator: %cmake_generator%
+
+set cmake_params=-DCMAKE_PREFIX_PATH=%qt_cmake_path% -DCMAKE_BUILD_TYPE=%build_mode% -G "%cmake_generator%" -A %cmake_vs_build_mode%
 
 if defined ENV_CHROMADESK_API_KEY (
     if not "%ENV_CHROMADESK_API_KEY%"=="" (

@@ -48,6 +48,9 @@ jobs:
         shell: bash
         run: echo "ENV_QT_PATH=$(dirname "$QT_ROOT_DIR")" >> $GITHUB_ENV
 
+      - name: Setup MSVC Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
+
       - name: Detect VS environment
         shell: pwsh
         run: |
